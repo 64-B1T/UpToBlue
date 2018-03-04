@@ -1,0 +1,186 @@
+<MenuScreen>:
+    FloatLayout:
+        canvas.before:
+            #Color:
+            #    rgba: 0.1, .1, 0.1, 1
+            Rectangle:
+                # self here refers to the widget i.e BoxLayout
+                source: "geo.jpg"
+                pos: self.pos
+                size: self.size
+        Button:
+            text: 'About'
+            size_hint: (.2, .1)
+            pos_hint: {'right': .8, 'center_y': .15}
+            on_press:
+                root.manager.transition.direction = 'down'
+                root.manager.current = 'about'
+
+        Button:
+            id: dev1
+            background_normal: "note8.png"
+            text: 'Phone 1'
+            size_hint: (.3, .2)
+            pos_hint: {'right': .45, 'center_y': .75}
+            on_press:
+                root.SetActivePhone(1)
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'settings'
+        Button:
+            id: dev2
+            background_normal: "note8.png"
+            text: 'Phone 2'
+            size_hint: (.3, .2)
+            pos_hint: {'right': .85, 'center_y': .75}
+            on_press:
+                root.SetActivePhone(2)
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'settings'
+        Button:
+            id: dev3
+            background_normal: "note8.png"
+            text: 'Phone 3'
+            size_hint: (.3, .2)
+            pos_hint: {'right': .45, 'center_y': .45}
+            on_press:
+                root.SetActivePhone(3)
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'settings'
+        Button:
+            id: dev4
+            background_normal: "note8.png"
+            text: 'Phone 4'
+            size_hint: (.3, .2)
+            pos_hint: {'right': .85, 'center_y': .45}
+            on_press:
+                root.SetActivePhone(4)
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'settings'
+        Button:
+            id: Combut
+            text: 'Open Comms'
+            size_hint:(.4,.1)
+            pos_hint: {'right': .6, 'center_y': .15}
+            on_press:
+                root.ToggleComms()
+
+<SettingsScreen>:
+    FloatLayout:
+        canvas.before:
+            #Color:
+                #rgba: 0.1, .1, 0.1, 1
+            Rectangle:
+                # self here refers to the widget i.e BoxLayout
+                source: "geo.jpg"
+                pos: self.pos
+                size: self.size
+        Button:
+            text: 'Mute'
+            size_hint: (.4, .1)
+            pos_hint: {'right': .5, 'center_y': .25}
+            on_press:
+                root.SetVolumeZero()
+                root.SendToComms()
+        Button:
+            text: 'Set Minimum Screen Brightness'
+            size_hint: (.4, .1)
+            pos_hint: {'right': .9, 'center_y': .25}
+            on_press:
+                root.SetScreenZero()
+                root.SendToComms()
+        Button:
+            size_hint: (.5, .1)
+            pos_hint: {'right': .75, 'center_y': .15}
+            text: 'Back to menu'
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'menu'
+        Button:
+            id: b1
+            size_hint: (.3, .1)
+            pos_hint: {'right': .65, 'center_y': .7}
+            text: 'Disable SMS'
+            on_press:
+                root.ToggleSMS()
+                root.SendToComms()
+
+        Button
+            id: b2
+            size_hint: (.3, .1)
+            pos_hint: {'right': .65, 'center_y': .5}
+            text: 'Disable Calling'
+            on_press:
+                root.ToggleVoice()
+                root.SendToComms()
+
+        Slider:
+            id: s1
+            orientation: 'vertical'
+            size_hint: (.1,.6)
+            pos_hint:{'right': .3, 'center_y': .7}
+            value: 50
+            range: (0,100)
+            step: 1
+            on_value:
+                root.UpdateVolume()
+                root.SendToComms()
+        Slider:
+            id: s2
+            orientation: 'vertical'
+            size_hint: (.1,.6)
+            pos_hint:{'right': .8, 'center_y': .7}
+            value: 50
+            range: (0,100)
+            step: 1
+            on_value:
+                root.UpdateBrightness()
+                root.SendToComms()
+        Label:
+            text: "Volume"
+            size_hint:.2,.1
+            pos_hint: {'right': .30, 'center_y': .95}
+        Label:
+            text: "Screen Brightness"
+            size_hint:.2,.1
+            pos_hint: {'right': .95, 'center_y': .95}
+        Label:
+            id: l1
+            size_hint: (.2, .1)
+            pos_hint: {'right': .3, 'center_y': .45}
+            text: str(s1.value)
+        Label:
+            id: l1
+            size_hint: (.2, .1)
+            pos_hint: {'right': .9, 'center_y': .45}
+            text: str(s2.value)
+<AboutScreen>:
+    FloatLayout:
+        canvas.before:
+            #Color:
+                #rgba: 0.1, .1, 0.1, 1
+            Rectangle:
+                # self here refers to the widget i.e BoxLayout
+                source: "geo.jpg"
+                pos: self.pos
+                size: self.size
+        Label:
+            size_hint: (.5, .1)
+            pos_hint: {'right': .75, 'center_y': .85}
+            text_size: self.size
+            valign: 'middle'
+            halign: 'center'
+            text: 'Designed For Disrupt the District 2018\n By Brendan Sherman, Charles Kresho & William Chapin'
+        Label:
+            size_hint: (.5, .4)
+            pos_hint: {'right': .75, 'center_y': .55}
+            text_size: self.size
+            valign: 'middle'
+            halign: 'center'
+            text: 'This Application allows for control of cell phone features \n by someone such as a driver or teacher. \n Feautres Controlled include: \n SMS Control \n Calling Control \n Volume Control \n Brightness Control'
+        Button:
+            size_hint: (.5, .1)
+            pos_hint: {'right': .75, 'center_y': .15}
+            text: 'Back to Menu'
+            on_press:
+                root.manager.transition.direction = 'up'
+                root.manager.current = 'menu'
